@@ -4,14 +4,15 @@ import pytest
 import random
 
 
-@pytest.mark.parametrize("e_mail",
-                         [
-                             "Estelle@valentina.info",
-                             "Gideon.Hyatt@jalen.tv",
-                             "Ethyl_Bogan@candace.co.uk",
-                             "Lowell.Pagac@omari.biz",
-                         ]
-                         )
+@pytest.mark.parametrize(
+    "e_mail",
+    [
+        "Estelle@valentina.info",
+        "Gideon.Hyatt@jalen.tv",
+        "Ethyl_Bogan@candace.co.uk",
+        "Lowell.Pagac@omari.biz",
+    ],
+)
 def test_email_in_posts(e_mail):
     """находим пост по значению имейла и выводим его имя """
 
@@ -20,19 +21,12 @@ def test_email_in_posts(e_mail):
     all_posts_str = json.dumps(all_posts_json, indent=2)
 
     for post in all_posts_json:
-        if post['email'] == e_mail:
-            assert post['email'] == e_mail
+        if post["email"] == e_mail:
+            assert post["email"] == e_mail
             print(f"\n{post['name']}")
 
 
-@pytest.mark.parametrize("album_id",
-                         [
-                             "1",
-                             "18",
-                             "66",
-                             "80",
-                         ]
-                         )
+@pytest.mark.parametrize("album_id", ["1", "18", "66", "80",])
 def test_album_photo_counter(album_id):
     """находим альбом по значению id и считаем количество картинок в этом альбоме """
 
@@ -42,7 +36,7 @@ def test_album_photo_counter(album_id):
 
     album_counter = 0
     for images in all_images_json:
-        if images['albumId'] == int(album_id):
+        if images["albumId"] == int(album_id):
             album_counter = album_counter + 1
     assert album_counter == 50
     print(f"\n{album_counter}")
@@ -51,18 +45,14 @@ def test_album_photo_counter(album_id):
 def test_create_resource():
     """ добавляем новый resource использвуя метод POST """
     test_json = {
-        "method": 'POST',
-        "body": {
-            "title": 'foo',
-            "body": 'bar',
-            "userId": 1
-        },
-        "headers": {
-            "Content-type": "application/json; charset=UTF-8"
-        }
+        "method": "POST",
+        "body": {"title": "foo", "body": "bar", "userId": 1},
+        "headers": {"Content-type": "application/json; charset=UTF-8"},
     }
 
-    all_posts = requests.post("https://jsonplaceholder.typicode.com/posts", json=test_json)
+    all_posts = requests.post(
+        "https://jsonplaceholder.typicode.com/posts", json=test_json
+    )
     all_posts_json = all_posts.json()
     all_posts_str = json.dumps(all_posts_json, indent=2)
 
@@ -73,16 +63,14 @@ def test_create_resource():
 def test_patch_resource():
     """ обновляем resource использвуя метод PATCH """
     test_json = {
-        "method": 'PATCH',
-        "body": {
-            "title": 'foo'
-        },
-        "headers": {
-            "Content-type": "application/json; charset=UTF-8"
-        }
+        "method": "PATCH",
+        "body": {"title": "foo"},
+        "headers": {"Content-type": "application/json; charset=UTF-8"},
     }
 
-    all_posts = requests.post("https://jsonplaceholder.typicode.com/posts/1", json=test_json)
+    all_posts = requests.post(
+        "https://jsonplaceholder.typicode.com/posts/1", json=test_json
+    )
     all_posts_json = all_posts.json()
     all_posts_str = json.dumps(all_posts_json, indent=2)
 
@@ -92,11 +80,11 @@ def test_patch_resource():
 
 def test_delete_resource():
     """ удаляем resource использвуя метод DELETE """
-    test_json = {
-        "method": 'DELETE'
-    }
+    test_json = {"method": "DELETE"}
 
-    all_posts = requests.post("https://jsonplaceholder.typicode.com/posts/1", json=test_json)
+    all_posts = requests.post(
+        "https://jsonplaceholder.typicode.com/posts/1", json=test_json
+    )
     all_posts_json = all_posts.json()
     all_posts_str = json.dumps(all_posts_json, indent=2)
 
